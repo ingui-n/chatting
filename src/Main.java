@@ -4,9 +4,11 @@ import models.gui.MainFrame;
 
 public class Main {
     public static void main(String[] args) {
-        testChat();
+        //testChat();
 
-        MainFrame window = new MainFrame(800, 600);
+        ChatClient chatClient = new InMemoryChatClient();
+
+        MainFrame window = new MainFrame(800, 600, chatClient);
     }
 
     private static void testChat() {
@@ -14,6 +16,6 @@ public class Main {
 
         chatClient.login("me");
         chatClient.sendMessage("fgdfg");
-        chatClient.logout("me");
+        chatClient.logout();
     }
 }
