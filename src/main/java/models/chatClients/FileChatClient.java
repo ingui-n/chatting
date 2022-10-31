@@ -1,20 +1,25 @@
 package models.chatClients;
 
+import models.Message;
+import models.chatClients.fileOperations.ChatFileOperations;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.ArrayList;
-import models.Message;
+import java.util.List;
 
-public class InMemoryChatClient implements ChatClient {
+public class FileChatClient implements ChatClient {
     private String loggedUser;
     private List<String> loggedUsers;
     private List<Message> messages;
     private List<ActionListener> listeners = new ArrayList<>();
 
-    public InMemoryChatClient() {
+    private ChatFileOperations chatFileOperations;
+
+    public FileChatClient(ChatFileOperations chatFileOperations) {
+        this.chatFileOperations = chatFileOperations;
         loggedUsers = new ArrayList<>();
-        messages = new ArrayList<>();
+        messages = chatFileOperations.readMessages();
     }
 
     @Override
@@ -41,7 +46,6 @@ public class InMemoryChatClient implements ChatClient {
 
     @Override
     public boolean isAuthentificated() {
-        System.out.println("1: " + loggedUser);
         return loggedUser != null;
     }
 
@@ -69,6 +73,8 @@ public class InMemoryChatClient implements ChatClient {
         for (ActionListener al : listeners) {
             al.actionPerformed(new ActionEvent(this, 2, "messagesChanged"));
         }
+
+        chatFileOperations.writeMessages(messages);
     }
 
     private void addSystemMessage(int type, String userName) {
