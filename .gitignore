@@ -2,3 +2,5 @@
 /out/
 .*
 messages.json
+ChatClientDb_skC
+*.log
