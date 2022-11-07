@@ -9,7 +9,7 @@ public class Message {
     private String author;
     @Expose(serialize = true, deserialize = true)
     private String text;
-    @Expose(serialize = false, deserialize = false)
+    @Expose(serialize = true, deserialize = true)
     private LocalDateTime created;
 
     public static final int USER_LOGGED_IN = 1;
