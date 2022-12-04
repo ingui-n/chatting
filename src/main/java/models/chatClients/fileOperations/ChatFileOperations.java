@@ -4,7 +4,7 @@ import models.Message;
 
 import java.util.List;
 
-public interface ChatFileOperations {//todo csv operations
+public interface ChatFileOperations {
     void writeMessages(List<Message> messages);
     List<Message> readMessages();
 }

@@ -40,7 +40,7 @@ public class InMemoryChatClient implements ChatClient {
     }
 
     @Override
-    public boolean isAuthentificated() {
+    public boolean isAuthenticated() {
         return loggedUser != null;
     }
 

@@ -45,7 +45,7 @@ public class FileChatClient implements ChatClient {
     }
 
     @Override
-    public boolean isAuthentificated() {
+    public boolean isAuthenticated() {
         return loggedUser != null;
     }
 

@@ -10,7 +10,7 @@ public interface ChatClient {
     void sendMessage(String text);
     void login(String userName);
     void logout();
-    boolean isAuthentificated();
+    boolean isAuthenticated();
 
     List<Message> getMessages();
     List<String> getLoggedUsers();

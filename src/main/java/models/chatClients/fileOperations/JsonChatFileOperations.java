@@ -10,12 +10,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JsonChatFileOperations implements ChatFileOperations {
-    private Gson gson;
+    private final Gson gson;
     private static final String MESSAGES_FILE = "./messages.json";
 
     public JsonChatFileOperations() {

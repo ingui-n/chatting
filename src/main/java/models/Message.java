@@ -3,6 +3,7 @@ package models;
 import com.google.gson.annotations.Expose;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Message {
     @Expose(serialize = true, deserialize = true)
@@ -20,6 +21,14 @@ public class Message {
         this.author = author;
         this.text = text;
         this.created = LocalDateTime.now();
+    }
+
+    public Message(String author, String text, String created) {
+        this.author = author;
+        this.text = text;
+
+        created = created.substring(0, 19);
+        this.created = LocalDateTime.parse(created, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
     public Message(int type, String userName) {
@@ -63,6 +72,6 @@ public class Message {
         if (author.toUpperCase().equals(AUTHOR_SYSTEM.toUpperCase()))
             return text + "\n";
 
-        return author + " [" + created + "]: " + text;
+        return author + " [" + created.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "]: " + text;
     }
 }

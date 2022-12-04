@@ -1,7 +1,6 @@
 package models.database;
 
 import models.Message;
-
 import java.util.List;
 
 public interface DatabaseOperations {

@@ -4,6 +4,7 @@ import models.chatClients.FileChatClient;
 import models.chatClients.InMemoryChatClient;
 import models.chatClients.api.ApiChatClient;
 import models.chatClients.fileOperations.ChatFileOperations;
+import models.chatClients.fileOperations.CsvChatFileOperations;
 import models.chatClients.fileOperations.JsonChatFileOperations;
 import models.database.DatabaseOperations;
 import models.database.DbInitializer;
@@ -15,35 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+    private static final String databaseDriver = "org.apache.derby.jdbc.EmbeddedDriver";
+    private static final String databaseUrl = "jdbc:derby:ChatClientDb_skC";
+
     public static void main(String[] args) {
-        String databaseDriver = "org.apache.derby.jdbc.EmbeddedDriver";
-        String databaseUrl = "jdbc:derby:ChatClientDb_skC";
+        ChatFileOperations chatFileOperations = new CsvChatFileOperations(); //new JsonChatFileOperations();
 
-        DbInitializer dbInitializer = new DbInitializer(databaseDriver, databaseUrl);
-        //dbInitializer.init();
-
-        try {
-            DatabaseOperations databaseOperations = new JdbcDatabaseOperations(databaseDriver, databaseUrl);
-
-            databaseOperations.addMessage(new Message("Author", "Message hi"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
-
-        //testChat();
-        ChatFileOperations chatFileOperations = new JsonChatFileOperations();
-
-        ChatClient chatClient = new ApiChatClient(); //new FileChatClient(chatFileOperations);
-
+        ChatClient chatClient = new FileChatClient(chatFileOperations); //new ApiChatClient();
         MainFrame window = new MainFrame(800, 600, chatClient);
-
-        Class<ApiChatClient> reflectionExample = ApiChatClient.class;
-        System.out.println(reflectionExample.getSimpleName());
-
-        for (Field f : getAllFields(reflectionExample)) {
-            System.out.println(f.getName() + ":" + f.getType());
-        }
     }
 
     private static void testChat() {
@@ -54,7 +34,32 @@ public class Main {
         chatClient.logout();
     }
 
-    private static List<Field> getAllFields(Class<?> cls) {// reflexe
+    private static void initDb() {
+        DbInitializer dbInitializer = new DbInitializer(databaseDriver, databaseUrl);
+        dbInitializer.init();
+    }
+
+    private static void testDb() {
+        try {
+            DatabaseOperations databaseOperations = new JdbcDatabaseOperations(databaseDriver, databaseUrl);
+
+            databaseOperations.addMessage(new Message("Dominik", "hi :)"));
+
+            System.out.println(databaseOperations.getMessages());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /** reflexe */
+    /*Class<ApiChatClient> reflectionExample = ApiChatClient.class;
+        System.out.println(reflectionExample.getSimpleName());
+
+        for (Field f : getAllFields(reflectionExample)) {
+            System.out.println(f.getName() + ":" + f.getType());
+        }*/
+
+    /*private static List<Field> getAllFields(Class<?> cls) {
         List<Field> fieldList = new ArrayList<>();
 
         for (Field f : cls.getDeclaredFields()) {
@@ -62,5 +67,5 @@ public class Main {
         }
 
         return fieldList;
-    }
+    }*/
 }

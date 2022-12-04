@@ -51,7 +51,7 @@ public class MainFrame extends JFrame {
                 String userName = txtUserName.getText();
                 System.out.println("logging " + userName);
 
-                if (chatClient.isAuthentificated()) {
+                if (chatClient.isAuthenticated()) {
                     // logout
                     chatClient.logout();
                     btnLogin.setText("Login");
@@ -97,6 +97,7 @@ public class MainFrame extends JFrame {
             if (e.getID() == 2)
                 refreshMessages();
         });
+
         return panel;
     }
 
@@ -118,7 +119,7 @@ public class MainFrame extends JFrame {
 
             if (msgText.length() < 1)
                 return;
-            if (!chatClient.isAuthentificated())
+            if (!chatClient.isAuthenticated())
                 return;
 
             chatClient.sendMessage(msgText);
@@ -130,7 +131,7 @@ public class MainFrame extends JFrame {
     }
 
     private void refreshMessages() {
-        if (!chatClient.isAuthentificated())
+        if (!chatClient.isAuthenticated())
             return;
 
         txtChatArea.setText("");

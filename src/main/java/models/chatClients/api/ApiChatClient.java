@@ -47,7 +47,7 @@ public class ApiChatClient implements ChatClient {
 
             try {
                 while (true) {
-                    if (isAuthentificated()) {
+                    if (isAuthenticated()) {
                         refreshLoggedUsers();
                         refreshMessages();
                     }
@@ -153,7 +153,7 @@ public class ApiChatClient implements ChatClient {
     }
 
     @Override
-    public boolean isAuthentificated() {
+    public boolean isAuthenticated() {
         return loggedUser != null;
     }
 

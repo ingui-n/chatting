@@ -1,6 +1,8 @@
 # Project exclude paths
 /out/
+/target
 .*
 messages.json
+messages.csv
 ChatClientDb_skC
 *.log
